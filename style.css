@@ -1,0 +1,628 @@
+/* 全局樣式重置 */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+:root {
+  --bg-main: #0b1120;
+  --top-bg: #111e38;
+  --top-card-bg: rgba(15, 30, 60, 0.75);
+  --bottom-bg: #0d1b2a;
+  --bottom-card-bg: rgba(13, 27, 42, 0.75);
+  --middle-bg: #1e293b;
+  --border-color: rgba(255, 255, 255, 0.12);
+  --accent-cyan: #38bdf8;
+  --accent-green: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-rose: #f43f5e;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang TC", "Microsoft JhengHei", sans-serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-stack);
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  position: relative;
+}
+
+/* ================= 上半部：顛倒 180 度 ================= */
+.section-top {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #091322 0%, #0f243c 100%);
+  padding: 12px 16px;
+  position: relative;
+  border-bottom: 2px solid rgba(56, 189, 248, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* 核心：180 度顛倒翻轉，給對面站立的人閱讀 */
+.inverted {
+  transform: rotate(180deg);
+  transform-origin: center center;
+}
+
+/* ================= 下半部：正常方向 (中文) ================= */
+.section-bottom {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #0d2238 0%, #091322 100%);
+  padding: 12px 16px;
+  position: relative;
+  border-top: 2px solid rgba(56, 189, 248, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* ================= 中間控制列 ================= */
+.section-middle {
+  flex-shrink: 0;
+  background: var(--middle-bg);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.lang-selector-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+.lang-selector-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.lang-btn {
+  flex: 1;
+  min-width: 68px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 8px 6px;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lang-btn .btn-flag {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.lang-btn .btn-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.lang-btn:active {
+  transform: scale(0.95);
+}
+
+.lang-btn.active {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  border-color: #38bdf8;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.4);
+}
+
+.control-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.live-toggle-btn {
+  flex: 2;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, rgba(14, 165, 233, 0.25) 100%);
+  border: 1px solid var(--accent-cyan);
+  color: #f0f9ff;
+  font-weight: 600;
+}
+
+.live-toggle-btn.connected {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  border-color: #34d399 !important;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.5);
+}
+
+.live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #64748b;
+  display: inline-block;
+  transition: all 0.3s;
+}
+
+.live-toggle-btn.connected .live-dot {
+  background-color: #ffffff;
+  box-shadow: 0 0 8px #ffffff;
+  animation: pulse-ring 1.2s infinite;
+}
+
+.tool-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-primary);
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tool-btn:active {
+  background: rgba(255, 255, 255, 0.18);
+  transform: scale(0.96);
+}
+
+.tool-btn.danger {
+  flex: 0 0 auto;
+  color: #fda4af;
+  border-color: rgba(244, 63, 94, 0.3);
+}
+
+/* ================= 區塊頭部與標籤 ================= */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+.lang-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+.lang-tag .flag-icon {
+  font-size: 1.2rem;
+}
+
+.lang-tag .lang-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Gemini Live 音訊聲波指示 */
+.live-visualizer-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.live-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--accent-cyan);
+}
+
+.audio-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 14px;
+}
+
+.audio-bars .bar {
+  width: 3px;
+  height: 4px;
+  background-color: var(--text-muted);
+  border-radius: 2px;
+  transition: height 0.1s ease;
+}
+
+.live-active .audio-bars .bar {
+  background-color: var(--accent-cyan);
+  animation: wave 0.8s infinite alternate;
+}
+
+.live-active .audio-bars .bar:nth-child(1) { animation-delay: 0.1s; }
+.live-active .audio-bars .bar:nth-child(2) { animation-delay: 0.3s; }
+.live-active .audio-bars .bar:nth-child(3) { animation-delay: 0.2s; }
+.live-active .audio-bars .bar:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes wave {
+  0% { height: 4px; }
+  100% { height: 14px; }
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* ================= 內容顯示區 ================= */
+.text-display-box {
+  flex: 1;
+  min-height: 0;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  user-select: text;
+}
+
+.recognized-text, .translated-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sub-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.content-text {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  word-break: break-word;
+}
+
+/* 翻譯成果（核心突顯大字體） */
+.content-text.main-highlight {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.4;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* ================= 狀態指示燈列 ================= */
+.status-indicator-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 4px 2px 4px;
+  flex-shrink: 0;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--text-muted);
+  transition: background-color 0.3s;
+}
+
+.status-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+
+/* 各種狀態樣式 */
+.status-active .pulse-dot {
+  background-color: var(--accent-green);
+  box-shadow: 0 0 8px var(--accent-green);
+}
+.status-active .status-text {
+  color: var(--accent-green);
+}
+
+.status-listening .pulse-dot {
+  background-color: var(--accent-rose);
+  box-shadow: 0 0 10px var(--accent-rose);
+  animation: blink 0.8s infinite alternate;
+}
+.status-listening .status-text {
+  color: #fda4af;
+}
+
+.status-translating .pulse-dot {
+  background-color: var(--accent-amber);
+  box-shadow: 0 0 8px var(--accent-amber);
+  animation: blink 0.5s infinite alternate;
+}
+.status-translating .status-text {
+  color: #fde047;
+}
+
+@keyframes blink {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+
+/* ================= 彈窗樣式 (Modal) ================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal-card {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  max-height: 65vh;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label-with-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-inline-action {
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: var(--accent-cyan);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-inline-action:hover, .btn-inline-action:active {
+  background: rgba(56, 189, 248, 0.3);
+  transform: scale(0.96);
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.input-with-toggle {
+  display: flex;
+  align-items: center;
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.input-with-toggle input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 10px 14px;
+  color: #fff;
+  font-size: 0.9rem;
+  outline: none;
+  user-select: text;
+}
+
+.input-with-toggle button {
+  background: transparent;
+  border: none;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.hint-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.hint-text a {
+  color: var(--accent-cyan);
+  text-decoration: underline;
+  word-break: break-all;
+}
+
+select {
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: #fff;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.test-api-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.test-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.test-btn:active {
+  transform: scale(0.96);
+}
+
+.test-result {
+  font-size: 0.8rem;
+}
+
+.test-result.success { color: var(--accent-green); }
+.test-result.error { color: var(--accent-rose); }
+
+.modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn {
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #fff;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+@media (min-width: 600px) {
+  .section-top, .section-bottom {
+    padding: 16px 24px;
+  }
+  .content-text.main-highlight {
+    font-size: 1.5rem;
+  }
+  .lang-btn {
+    min-width: 80px;
+    padding: 10px 8px;
+  }
+}
+
+/* 右下角版本時間戳 */
+.app-version {
+  position: fixed;
+  right: 6px;
+  bottom: calc(4px + env(safe-area-inset-bottom));
+  font-size: 10px;
+  color: rgba(148, 163, 184, 0.7);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ================= iOS 安全區域（瀏海 / 動態島 / Home 指示條） ================= */
+.app-container {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--bg-main);
+}
+html.ios body, html.ios .app-container { -webkit-text-size-adjust: 100%; }
+/* iOS 輸入框字級小於 16px 會自動放大畫面 */
+input, select, textarea { font-size: 16px; }
+.modal-card { max-height: calc(100dvh - 24px); overflow-y: auto; -webkit-overflow-scrolling: touch; }

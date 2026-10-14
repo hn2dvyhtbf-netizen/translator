@@ -1,0 +1,28 @@
+{
+  "name": "face-to-face-translator",
+  "version": "1.0.0",
+  "description": "iPhone 面對面雙向語音即時翻譯 App",
+  "main": "index.html",
+  "scripts": {
+    "start": "python start_server.py",
+    "build:web": "node scripts/build-web.js",
+    "cap:add": "npx cap add ios",
+    "cap:sync": "npm run build:web && npx cap sync ios",
+    "cap:open": "npx cap open ios"
+  },
+  "keywords": [
+    "translator",
+    "ios",
+    "gemini",
+    "pwa"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@capacitor/core": "^6.2.0",
+    "@capacitor/ios": "^6.2.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.2.0"
+  }
+}

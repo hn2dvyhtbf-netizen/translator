@@ -1,0 +1,14 @@
+{
+  "appId": "com.facetoface.translator",
+  "appName": "面對面翻譯",
+  "webDir": "www",
+  "ios": {
+    "backgroundColor": "#0f172a",
+    "contentInset": "never",
+    "allowsLinkPreview": false,
+    "limitsNavigationsToAppBoundDomains": false
+  },
+  "server": {
+    "iosScheme": "capacitor"
+  }
+}
